@@ -4,19 +4,27 @@
 const canvas = document.querySelector('#Canvas');
 const game = canvas.getContext('2d');
 
-window.addEventListener('load', startGame);
+let elementSize
+let canvasSize
 
-function startGame() {
-    let canvasSize = window.innerWidth > window.innerHeight ? window.innerHeight * 0.7 : window.innerWidth * 0.8;
+window.addEventListener('load', printMap);
+window.addEventListener('resize', printMap);
+
+function printMap() {
+    canvasSize = window.innerWidth > window.innerHeight 
+    ? window.innerHeight * 0.7 
+    : window.innerWidth * 0.8;
     console.log(canvasSize);
-    
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
 
-    let elementSize = (canvasSize / 10) - 1;
+    elementSize = (canvasSize / 10) - 1;
+    startGame()
+}
+function startGame() {
 
     game.font = elementSize + 'px Veradna';
-    game.textAlign = 'starts';
+    game.textAlign = 'start';
 
     for (let i = 0; i < 10; i++) {
         game.fillText(emojis['X'], elementSize * i, elementSize)
