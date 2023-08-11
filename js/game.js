@@ -7,14 +7,18 @@ const game = canvas.getContext('2d');
 window.addEventListener('load', startGame);
 
 function startGame() {
-    game.fillStyle = 'purple';
-    game.fillRect(0,0,100,100);
-    game.clearRect(50,50,50,50);
-    game.clearRect(0,0,50,50);
+    let canvasSize = window.innerWidth > window.innerHeight ? window.innerHeight * 0.7 : window.innerWidth * 0.8;
+    console.log(canvasSize);
     
-    
-    game.font = '30px Verdana'
-    game.fillStyle = "brown"
-    game.textAlign = 'start';
-    game.fillText('Platzi', 0, 30);
+    canvas.setAttribute('width', canvasSize);
+    canvas.setAttribute('height', canvasSize);
+
+    let elementSize = (canvasSize / 10) - 1;
+
+    game.font = elementSize + 'px Veradna';
+    game.textAlign = 'starts';
+
+    for (let i = 0; i < 10; i++) {
+        game.fillText(emojis['X'], elementSize * i, elementSize)
+    }
 }
