@@ -12,7 +12,7 @@ window.addEventListener('resize', printMap);
 
 function printMap() {
     canvasSize = window.innerWidth > window.innerHeight 
-    ? window.innerHeight * 0.7 
+    ? window.innerHeight * 0.7
     : window.innerWidth * 0.8;
     console.log(canvasSize);
     canvas.setAttribute('width', canvasSize);
@@ -23,12 +23,16 @@ function printMap() {
 }
 function startGame() {
 
-    game.font = elementSize + 'px Veradna';
+    game.font = `${elementSize}px Verdana`;
     game.textAlign = 'start';
 
-    for (let i = 0; i < 10; i++) {
-        for (let j = 1; j <= 10; j++) {
-            game.fillText(emojis['X'], elementSize * i, elementSize * j)
+    const map = maps[1]
+    .match(/[IXO\-]+/g)
+    .map(a=>a.split(""))
+
+    for (let row = 1; row <= 10; row++) {
+        for (let col = 0; col <= 9; col++) {
+            game.fillText(emojis[map[row - 1][col]], elementSize * col, elementSize * row);
         }
     }
 }
