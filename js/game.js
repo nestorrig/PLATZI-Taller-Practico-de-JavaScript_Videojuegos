@@ -26,13 +26,16 @@ function startGame() {
     game.font = `${elementSize}px Verdana`;
     game.textAlign = 'start';
 
-    const map = maps[1]
-    .match(/[IXO\-]+/g)
-    .map(a=>a.split(""))
+    const map = maps[2] // select de map
+    .match(/[IXO\-]+/g) // match each line
+    .map(line=>line.split("")) // make a array for each line, every letter is a array element
 
-    for (let row = 1; row <= 10; row++) {
-        for (let col = 0; col <= 9; col++) {
-            game.fillText(emojis[map[row - 1][col]], elementSize * col, elementSize * row);
-        }
-    }
+    map.forEach((row, rowNumber) => {
+        row.forEach((column, columnNumber) => {
+            const emoji = emojis[column];
+            const xPosition = elementSize * (columnNumber + 0);
+            const yPosition = elementSize * (rowNumber + 1);
+            game.fillText(emoji, xPosition, yPosition)
+        });
+    });
 }
