@@ -3,12 +3,17 @@
 
 const canvas = document.querySelector('#Canvas');
 const game = canvas.getContext('2d');
+const buttons = document.querySelectorAll('button')
 
 let elementSize
 let canvasSize
 
 window.addEventListener('load', printMap);
 window.addEventListener('resize', printMap);
+window.addEventListener('keydown', moveByKeys);
+buttons.forEach(button => {
+    button.addEventListener('click', moveByButtons)
+});
 
 function printMap() {
     canvasSize = window.innerWidth > window.innerHeight 
@@ -38,4 +43,69 @@ function startGame() {
             game.fillText(emoji, xPosition, yPosition)
         });
     });
+}
+function moveByKeys(event) {
+    const tecla = event.key
+    console.log(event);
+    switch (tecla) {
+        case "ArrowUp":
+        case "w":
+            // moverPersonaje(tecla)
+            alert('se preciona la tecla ' + tecla)
+            break;
+        case "ArrowLeft":
+        case "a":
+            // moverPersonaje(tecla)
+            alert('se preciona la tecla ' + tecla)
+            break;
+        case "ArrowRight":
+        case "d":
+            // moverPersonaje(tecla)
+            alert('se preciona la tecla ' + tecla)
+            break;
+        case "ArrowDown":
+        case "s":
+            // moverPersonaje(tecla)
+            alert('se preciona la tecla ' + tecla)
+            break;
+        default:
+            break;
+    }
+}
+// function moveByKeys(event) {
+//     const moveFunctions = {
+//         ArrowUp: moveUp,
+//         ArrowLeft: moveLeft,
+//         ArrowRight: moveRight,
+//         ArrowDown: moveDown
+//     };
+    
+//     const moveFunction = moveFunctions[event.key];
+//     if (moveFunction) {
+//         moveFunction();
+//     }
+// }
+function moveByButtons(event) {
+    console.log(event.target.id);
+    const direction = event.target.id
+    switch (direction) {
+        case "up":
+            // moverPersonaje(direction)
+            alert('se preciono el boton ' + direction)
+            break;
+        case "left":
+            // moverPersonaje(direction)
+            alert('se preciono el boton ' + direction)
+            break;
+        case "right":
+            // moverPersonaje(direction)
+            alert('se preciono el boton ' + direction)
+            break;
+        case "down":
+            // moverPersonaje(direction)
+            alert('se preciono el boton ' + direction)
+            break;
+        default:
+            break;
+    }
 }
