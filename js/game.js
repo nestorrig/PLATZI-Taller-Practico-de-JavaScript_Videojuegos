@@ -7,6 +7,14 @@ const buttons = document.querySelectorAll('button')
 
 let elementSize
 let canvasSize
+const tempPosition = {
+    x: undefined,
+    y: undefined
+}
+const playerPosition = {
+    x: undefined,
+    y: undefined
+}
 
 window.addEventListener('load', printMap);
 window.addEventListener('resize', printMap);
@@ -31,7 +39,7 @@ function startGame() {
     game.font = `${elementSize}px Verdana`;
     game.textAlign = 'start';
 
-    const map = maps[2] // select de map
+    const map = maps[0] // select de map
     .match(/[IXO\-]+/g) // match each line
     .map(line=>line.split("")) // make a array for each line, every letter is a array element
 
@@ -41,9 +49,39 @@ function startGame() {
             const xPosition = elementSize * (columnNumber + 0);
             const yPosition = elementSize * (rowNumber + 1);
             game.fillText(emoji, xPosition, yPosition)
+
+            if (column === 'O') {
+                playerPosition.x = xPosition
+                playerPosition.y = yPosition
+            }
         });
     });
+    // movePlayer()
 }
+
+// game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
+function movePlayer(direction =  0) {
+    // console.log(direction)
+    switch (direction) {
+        case 'moveUp':
+            playerPosition.y -= elementSize
+            break;
+        case 'moveLeft':
+            playerPosition.x -= elementSize
+            break;
+        case 'moveRight':
+            playerPosition.x += elementSize
+            break;
+        case 'moveDown':
+            playerPosition.y += elementSize
+            break;
+        default:
+            break;
+    }
+    // printMap()
+    game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
+}
+
 function moveByKeys(event) {
     const direction = event.key;
     const keys = {
@@ -58,8 +96,7 @@ function moveByKeys(event) {
     };
     const validKey = keys[direction];
     if (validKey) {
-        // moveFunction();
-        console.log(validKey);
+        movePlayer(validKey);
     }
 }
 function moveByButtons(event) {
@@ -74,7 +111,6 @@ function moveByButtons(event) {
 
     const validButton = buttonsId[direction];
     if (validButton) {
-        // moveFunction();
-        console.log(validButton);
+        movePlayer(validButton);
     }
 }
