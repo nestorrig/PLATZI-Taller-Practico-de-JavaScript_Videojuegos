@@ -5,12 +5,10 @@ const canvas = document.querySelector('#Canvas');
 const game = canvas.getContext('2d');
 const buttons = document.querySelectorAll('button')
 
+let moves = 0;
 let elementSize
 let canvasSize
-const tempPosition = {
-    x: undefined,
-    y: undefined
-}
+
 const playerPosition = {
     x: undefined,
     y: undefined
@@ -27,7 +25,7 @@ function printMap() {
     canvasSize = window.innerWidth > window.innerHeight 
     ? window.innerHeight * 0.7
     : window.innerWidth * 0.8;
-    console.log(canvasSize);
+    // console.log(canvasSize);
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
 
@@ -35,9 +33,9 @@ function printMap() {
     startGame()
 }
 function startGame() {
-
     game.font = `${elementSize}px Verdana`;
     game.textAlign = 'start';
+    game.textBaseline  = 'top';
 
     const map = maps[0] // select de map
     .match(/[IXO\-]+/g) // match each line
@@ -46,22 +44,22 @@ function startGame() {
     map.forEach((row, rowNumber) => {
         row.forEach((column, columnNumber) => {
             const emoji = emojis[column];
-            const xPosition = elementSize * (columnNumber + 0);
-            const yPosition = elementSize * (rowNumber + 1);
+            const xPosition = elementSize * columnNumber;
+            const yPosition = elementSize * rowNumber;
             game.fillText(emoji, xPosition, yPosition)
 
-            if (column === 'O') {
+            if (column === 'O' && moves === 0) {
                 playerPosition.x = xPosition
                 playerPosition.y = yPosition
+                game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
             }
         });
     });
-    // movePlayer()
 }
 
-// game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
-function movePlayer(direction =  0) {
-    // console.log(direction)
+function movePlayer(direction) {
+    moves++
+    console.log(moves);
     switch (direction) {
         case 'moveUp':
             playerPosition.y -= elementSize
@@ -78,7 +76,8 @@ function movePlayer(direction =  0) {
         default:
             break;
     }
-    // printMap()
+    console.log(playerPosition);
+    printMap()
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
 }
 
