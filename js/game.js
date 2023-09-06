@@ -37,7 +37,7 @@ function startGame() {
     game.textAlign = 'start';
     game.textBaseline  = 'top';
 
-    const map = maps[0] // select de map
+    const map = maps[2] // select de map
     .match(/[IXO\-]+/g) // match each line
     .map(line=>line.split("")) // make a array for each line, every letter is a array element
 
@@ -53,6 +53,13 @@ function startGame() {
                 playerPosition.y = yPosition
                 game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
             }
+            // if (col == 'O') {
+            //     if (!playerPosition.x && !playerPosition.y) {
+            //         playerPosition.x = xPosition;
+            //         playerPosition.y = yPosition;
+            //         game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
+            //     }
+            // } solucion de la clase 10
         });
     });
 }
