@@ -29,29 +29,27 @@ function printMap() {
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
 
-    elementSize = Math.ceil(canvasSize/10 - 2);
+    elementSize = Math.ceil(canvasSize/10 - 1.5);
     startGame()
 }
 function startGame() {
     game.font = `${elementSize}px Verdana`;
-    game.textAlign = 'start';
-    game.textBaseline  = 'top';
+    game.textAlign = '';
 
     const map = maps[2] // select de map
     .match(/[IXO\-]+/g) // match each line
     .map(line=>line.split("")) // make a array for each line, every letter is a array element
 
-    map.forEach((row, rowNumber) => {
-        row.forEach((column, columnNumber) => {
+    map.forEach((row, rowIndex) => {
+        row.forEach((column, columnIndex) => {
             const emoji = emojis[column];
-            const xPosition = elementSize * columnNumber;
-            const yPosition = elementSize * rowNumber;
+            const xPosition = elementSize * (columnIndex);
+            const yPosition = elementSize * (rowIndex + 1);
             game.fillText(emoji, xPosition, yPosition)
 
             if (column === 'O' && moves === 0) {
                 playerPosition.x = xPosition
                 playerPosition.y = yPosition
-                // console.log(playerPosition);
                 game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
             }
         });
@@ -59,7 +57,7 @@ function startGame() {
 }
 
 function mapLimit() {
-    const canvasLimit = elementSize* 10
+    const canvasLimit = elementSize * 10
     console.log(
         canvasLimit, canvasSize
     );
@@ -69,10 +67,10 @@ function mapLimit() {
     if (playerPosition.x < 0) {
         playerPosition.x += elementSize
     }
-    if (playerPosition.y >= canvasLimit) {
+    if (playerPosition.y > canvasLimit) {
         playerPosition.y -= elementSize
     }
-    if (playerPosition.y < 0) {
+    if (playerPosition.y <= 0) {
         playerPosition.y += elementSize
     }
 }
