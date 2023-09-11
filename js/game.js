@@ -13,6 +13,10 @@ const playerPosition = {
     x: undefined,
     y: undefined
 }
+const giftPosition = {
+    x: undefined,
+    y: undefined
+}
 
 window.addEventListener('load', printMap);
 window.addEventListener('resize', printMap);
@@ -51,6 +55,10 @@ function startGame() {
                 playerPosition.x = xPosition
                 playerPosition.y = yPosition
                 game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
+            }
+            if (column === 'I') {
+                giftPosition.x = xPosition
+                giftPosition.y = yPosition
             }
         });
     });
@@ -94,9 +102,15 @@ function movePlayer(direction) {
             break;
     }
     mapLimit()
-    console.log(playerPosition);
     printMap()
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
+
+    if (giftPosition.x === playerPosition.x) {
+        if (giftPosition.y === playerPosition.y) {
+            // alert('eureka')
+            console.log('eureka');
+        }
+    }
 }
 
 function moveByKeys(event) {
