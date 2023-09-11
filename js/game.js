@@ -23,13 +23,13 @@ buttons.forEach(button => {
 
 function printMap() {
     canvasSize = window.innerWidth > window.innerHeight 
-    ? window.innerHeight * 0.7
-    : window.innerWidth * 0.8;
-    // console.log(canvasSize);
+    ? Math.ceil(window.innerHeight * 0.7)
+    : Math.ceil(window.innerWidth * 0.8);
+    console.log(canvasSize);
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
 
-    elementSize = (canvasSize / 10) - 1;
+    elementSize = Math.ceil(canvasSize/10 - 2);
     startGame()
 }
 function startGame() {
@@ -51,22 +51,34 @@ function startGame() {
             if (column === 'O' && moves === 0) {
                 playerPosition.x = xPosition
                 playerPosition.y = yPosition
+                // console.log(playerPosition);
                 game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
             }
-            // if (col == 'O') {
-            //     if (!playerPosition.x && !playerPosition.y) {
-            //         playerPosition.x = xPosition;
-            //         playerPosition.y = yPosition;
-            //         game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
-            //     }
-            // } solucion de la clase 10
         });
     });
 }
 
+function mapLimit() {
+    const canvasLimit = elementSize* 10
+    console.log(
+        canvasLimit, canvasSize
+    );
+    if (playerPosition.x >= canvasLimit) {
+        playerPosition.x -= elementSize
+    }
+    if (playerPosition.x < 0) {
+        playerPosition.x += elementSize
+    }
+    if (playerPosition.y >= canvasLimit) {
+        playerPosition.y -= elementSize
+    }
+    if (playerPosition.y < 0) {
+        playerPosition.y += elementSize
+    }
+}
 function movePlayer(direction) {
     moves++
-    console.log(moves);
+    // console.log(moves);
     switch (direction) {
         case 'moveUp':
             playerPosition.y -= elementSize
@@ -83,7 +95,9 @@ function movePlayer(direction) {
         default:
             break;
     }
+    mapLimit()
     console.log(playerPosition);
+
     printMap()
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
 }
