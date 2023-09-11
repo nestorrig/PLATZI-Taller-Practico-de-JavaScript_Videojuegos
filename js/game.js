@@ -97,7 +97,6 @@ function movePlayer(direction) {
     }
     mapLimit()
     console.log(playerPosition);
-
     printMap()
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
 }
@@ -121,14 +120,12 @@ function moveByKeys(event) {
 }
 function moveByButtons(event) {
     const direction = event.target.id
-
     const buttonsId = {
         up: 'moveUp',
         left: 'moveLeft',
         right: 'moveRight',
         down: 'moveDown',
     };
-
     const validButton = buttonsId[direction];
     if (validButton) {
         movePlayer(validButton);
