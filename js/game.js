@@ -30,7 +30,7 @@ function printMap() {
     canvasSize = window.innerWidth > window.innerHeight 
     ? Math.ceil(window.innerHeight * 0.7)
     : Math.ceil(window.innerWidth * 0.8);
-    console.log(canvasSize);
+    // console.log(canvasSize);
     canvas.setAttribute('width', canvasSize);
     canvas.setAttribute('height', canvasSize);
 
@@ -73,9 +73,9 @@ function startGame() {
 
 function mapLimit() {
     const canvasLimit = elementSize * 10
-    console.log(
-        canvasLimit, canvasSize
-    );
+    // console.log(
+    //     canvasLimit, canvasSize
+    // );
     if (playerPosition.x >= canvasLimit) {
         playerPosition.x -= elementSize
     }
