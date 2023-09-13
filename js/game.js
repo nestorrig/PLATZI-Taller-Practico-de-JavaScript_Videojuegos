@@ -17,6 +17,7 @@ const giftPosition = {
     x: undefined,
     y: undefined
 }
+const bombsPositions = []
 
 window.addEventListener('load', printMap);
 window.addEventListener('resize', printMap);
@@ -55,6 +56,12 @@ function startGame() {
                 playerPosition.x = xPosition
                 playerPosition.y = yPosition
                 game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
+            }
+            if (column === 'X' && moves === 0) {
+                bombsPositions.push({
+                    x: xPosition,
+                    y: yPosition
+                })
             }
             if (column === 'I') {
                 giftPosition.x = xPosition
@@ -105,10 +112,21 @@ function movePlayer(direction) {
     printMap()
     game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
 
+    bombsPositions.forEach(bomb => {
+        if (bomb.x === playerPosition.x) {
+            if (bomb.y === playerPosition.y) {
+                console.log('Bomba');
+                game.fillText(emojis['BOMB_COLLISION'], playerPosition.x, playerPosition.y)
+            }
+        }
+    });
+
     if (giftPosition.x === playerPosition.x) {
         if (giftPosition.y === playerPosition.y) {
-            // alert('eureka')
             console.log('eureka');
+            // setTimeout(() => {
+            //     alert('eureka');
+            // }, "300");
         }
     }
 }
