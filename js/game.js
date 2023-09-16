@@ -8,6 +8,7 @@ const buttons = document.querySelectorAll('button')
 let moves = 0;
 let elementSize
 let canvasSize
+let level = 0
 
 const playerPosition = {
     x: undefined,
@@ -41,11 +42,18 @@ function startGame() {
     game.font = `${elementSize}px Verdana`;
     game.textAlign = '';
 
-    const map = maps[2] // select de map
+    const map = maps[level] // select de map
+
+    if (!map) {
+        return
+    }
+    const printedMap = map
     .match(/[IXO\-]+/g) // match each line
     .map(line=>line.split("")) // make a array for each line, every letter is a array element
+    
+    game.clearRect(0,0,canvasSize, canvasSize); // clean the map
 
-    map.forEach((row, rowIndex) => {
+    printedMap.forEach((row, rowIndex) => {
         row.forEach((column, columnIndex) => {
             const emoji = emojis[column];
             const xPosition = elementSize * (columnIndex);
@@ -124,13 +132,16 @@ function movePlayer(direction) {
     if (giftPosition.x === playerPosition.x) {
         if (giftPosition.y === playerPosition.y) {
             console.log('eureka');
-            // setTimeout(() => {
-            //     alert('eureka');
-            // }, "300");
+            nextLevel()
         }
     }
 }
-
+function nextLevel() {
+    level++
+    moves = 0
+    bombsPositions.length = 0
+    startGame()
+}
 function moveByKeys(event) {
     const direction = event.key;
     const keys = {
