@@ -9,8 +9,14 @@ let moves = 0;
 let elementSize
 let canvasSize
 let level = 0
+let lives = 3
+let collisionEstatus = false
 
 const playerPosition = {
+    x: undefined,
+    y: undefined
+}
+const doorPosition = {
     x: undefined,
     y: undefined
 }
@@ -19,6 +25,7 @@ const giftPosition = {
     y: undefined
 }
 const bombsPositions = []
+const collisionPositions = []
 
 window.addEventListener('load', printMap);
 window.addEventListener('resize', printMap);
@@ -45,6 +52,10 @@ function startGame() {
     const map = maps[level] // select de map
 
     if (!map) {
+        window.removeEventListener('keydown', moveByKeys);
+        buttons.forEach(button => {
+            button.removeEventListener('click', moveByButtons)
+        });
         return
     }
     const printedMap = map
@@ -61,6 +72,9 @@ function startGame() {
             game.fillText(emoji, xPosition, yPosition)
 
             if (column === 'O' && moves === 0) {
+                doorPosition.x = xPosition
+                doorPosition.y = yPosition
+                
                 playerPosition.x = xPosition
                 playerPosition.y = yPosition
                 game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
@@ -77,6 +91,9 @@ function startGame() {
             }
         });
     });
+    if (collisionEstatus) {
+        game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
+    }
 }
 
 function mapLimit() {
@@ -123,22 +140,45 @@ function movePlayer(direction) {
     bombsPositions.forEach(bomb => {
         if (bomb.x === playerPosition.x) {
             if (bomb.y === playerPosition.y) {
-                console.log('Bomba');
-                game.fillText(emojis['BOMB_COLLISION'], playerPosition.x, playerPosition.y)
+                collision()
             }
         }
     });
-
+    collisionPositions.forEach(collision => {
+        game.fillText(emojis['BOMB_COLLISION'], collision.x, collision.y)
+    })
     if (giftPosition.x === playerPosition.x) {
         if (giftPosition.y === playerPosition.y) {
-            console.log('eureka');
             nextLevel()
         }
     }
 }
+function collision() {
+    collisionEstatus = true
+    collisionPositions.push({
+        x: playerPosition.x,
+        y: playerPosition.y
+    })
+    lives--
+    if (lives <= 0) {
+        lostGame()
+    }
+    playerPosition.x = doorPosition.x
+    playerPosition.y = doorPosition.y
+    startGame()
+}
 function nextLevel() {
     level++
+    reset()
+}
+function lostGame() {
+    level = 0
+    lives = 3
+    reset()
+}
+function reset() {
     moves = 0
+    collisionPositions.length = 0
     bombsPositions.length = 0
     startGame()
 }
