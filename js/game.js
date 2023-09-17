@@ -98,9 +98,7 @@ function startGame() {
 
 function mapLimit() {
     const canvasLimit = elementSize * 10
-    // console.log(
-    //     canvasLimit, canvasSize
-    // );
+
     if (playerPosition.x >= canvasLimit) {
         playerPosition.x -= elementSize
     }
