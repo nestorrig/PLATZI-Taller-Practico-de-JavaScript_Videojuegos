@@ -4,6 +4,7 @@
 const canvas = document.querySelector('#Canvas');
 const game = canvas.getContext('2d');
 const buttons = document.querySelectorAll('button')
+const spanLives = document.querySelector('#Lives')
 
 let moves = 0;
 let elementSize
@@ -58,6 +59,8 @@ function startGame() {
         });
         return
     }
+    spanLives.innerHTML = emojis['HEART'].repeat(lives) // show lives in HTML
+
     const printedMap = map
     .match(/[IXO\-]+/g) // match each line
     .map(line=>line.split("")) // make a array for each line, every letter is a array element
