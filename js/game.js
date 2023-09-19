@@ -15,7 +15,6 @@ let level = 0
 let lives = 3
 let collisionEstatus = false
 
-let isTimeIntervalActive = false;
 let timeStart
 let timeInterval
 let playerInterval
@@ -60,7 +59,6 @@ function startGame() {
     if (!timeStart) {
         timeStart = Date.now()
         timeInterval = setInterval(showTime, 10)
-        isTimeIntervalActive = true
     }
 
     const map = maps[level] // select de map
@@ -187,11 +185,7 @@ function lostGame() {
     level = 0
     lives = 3
     timeStart = undefined
-
-    if (isTimeIntervalActive) { // Verifica si el intervalo está activo antes de detenerlo
-        clearInterval(timeInterval);
-        isTimeIntervalActive = false; // Marca el intervalo como inactivo
-    }
+    clearInterval(timeInterval);
     reset()
 }
 function gameWin() {
