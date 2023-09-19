@@ -5,13 +5,20 @@ const canvas = document.querySelector('#Canvas');
 const game = canvas.getContext('2d');
 const buttons = document.querySelectorAll('button')
 const spanLives = document.querySelector('#Lives')
+const spanTime = document.querySelector('#Time')
 
 let moves = 0;
 let elementSize
 let canvasSize
+
 let level = 0
 let lives = 3
 let collisionEstatus = false
+
+let isTimeIntervalActive = false;
+let timeStart
+let timeInterval
+let playerInterval
 
 const playerPosition = {
     x: undefined,
@@ -50,13 +57,16 @@ function startGame() {
     game.font = `${elementSize}px Verdana`;
     game.textAlign = '';
 
+    if (!timeStart) {
+        timeStart = Date.now()
+        timeInterval = setInterval(showTime, 10)
+        isTimeIntervalActive = true
+    }
+
     const map = maps[level] // select de map
 
     if (!map) {
-        window.removeEventListener('keydown', moveByKeys);
-        buttons.forEach(button => {
-            button.removeEventListener('click', moveByButtons)
-        });
+        gameWin()
         return
     }
     spanLives.innerHTML = emojis['HEART'].repeat(lives) // show lives in HTML
@@ -170,18 +180,36 @@ function collision() {
 }
 function nextLevel() {
     level++
+    console.log(timeInterval);
     reset()
 }
 function lostGame() {
     level = 0
     lives = 3
+    timeStart = undefined
+
+    if (isTimeIntervalActive) { // Verifica si el intervalo está activo antes de detenerlo
+        clearInterval(timeInterval);
+        isTimeIntervalActive = false; // Marca el intervalo como inactivo
+    }
     reset()
+}
+function gameWin() {
+    console.log(timeInterval);
+    clearInterval(timeInterval)
+    window.removeEventListener('keydown', moveByKeys);
+    buttons.forEach(button => {
+        button.removeEventListener('click', moveByButtons)
+    });
 }
 function reset() {
     moves = 0
     collisionPositions.length = 0
     bombsPositions.length = 0
     startGame()
+}
+function showTime() {
+    spanTime.innerHTML = Date.now() - timeStart
 }
 function moveByKeys(event) {
     const direction = event.key;
