@@ -6,6 +6,7 @@ const game = canvas.getContext('2d');
 const buttons = document.querySelectorAll('button')
 const spanLives = document.querySelector('#Lives')
 const spanTime = document.querySelector('#Time')
+const spanRecord = document.querySelector('#Record')
 
 let moves = 0;
 let elementSize
@@ -60,7 +61,9 @@ function startGame() {
         timeStart = Date.now()
         timeInterval = setInterval(showTime, 20)
     }
-
+    if (localStorage.getItem('record')) { // validamos si existe un record anterior
+        spanRecord.innerHTML = localStorage.getItem('record')
+    }
     const map = maps[level] // select de map
 
     if (!map) {
@@ -189,12 +192,24 @@ function lostGame() {
     reset()
 }
 function gameWin() {
-    console.log(timeInterval);
     clearInterval(timeInterval)
     window.removeEventListener('keydown', moveByKeys);
     buttons.forEach(button => {
         button.removeEventListener('click', moveByButtons)
     });
+    if (!localStorage.getItem('record')) {
+        spanRecord.innerHTML = spanTime.outerText
+        localStorage.setItem('record', spanTime.outerText)
+        localStorage.setItem('recordTime', playerInterval)
+        return
+    }
+    if (playerInterval < localStorage.getItem('recordTime')) {
+        localStorage.clear()
+        spanRecord.innerHTML = spanTime.outerText
+        localStorage.setItem('record', spanTime.outerText)
+        localStorage.setItem('recordTime', playerInterval)
+    }
+
 }
 function reset() {
     moves = 0
@@ -204,7 +219,7 @@ function reset() {
 }
 function showTime() {
     const currentTime = Date.now() - timeStart;
-    
+    playerInterval = Date.now() - timeStart;
     // Calcular los minutos, segundos y milisegundos
     const minutes = Math.floor(currentTime / 60000);
     const seconds = Math.floor((currentTime % 60000) / 1000);

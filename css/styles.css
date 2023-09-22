@@ -31,10 +31,13 @@ body {
 
 
 .map {
+    padding-block: 36px;
     display: flex;
     flex-direction: row-reverse;
+    align-content: space-between;
     align-items: center;
     justify-content: center;
+    /* gap: 24px; */
     flex-wrap: wrap;
     height: 100vh;
     width: 100vw;
@@ -62,7 +65,7 @@ canvas {
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 48px;
+    gap: 54px;
 }
 
 button {
@@ -74,8 +77,8 @@ button {
     font-family: inherit;
     font-size: 30px;
     padding: 20px;
-    height: 100px;
-    width: 100px;
+    height: 75px;
+    width: 75px;
     user-select: none;
     cursor: pointer;
     transition: all .3s;
@@ -87,10 +90,10 @@ button:active {
     transform: scale(.9);
 }
 #up {
-    margin-bottom: -24px;
+    margin-bottom: -12px;
 }
 #down {
-    margin-top: -24px;
+    margin-top: -12px;
 }
 
 .messages {
