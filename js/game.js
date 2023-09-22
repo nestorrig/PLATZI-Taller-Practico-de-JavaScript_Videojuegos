@@ -58,7 +58,7 @@ function startGame() {
 
     if (!timeStart) {
         timeStart = Date.now()
-        timeInterval = setInterval(showTime, 10)
+        timeInterval = setInterval(showTime, 20)
     }
 
     const map = maps[level] // select de map
@@ -203,7 +203,21 @@ function reset() {
     startGame()
 }
 function showTime() {
-    spanTime.innerHTML = Date.now() - timeStart
+    const currentTime = Date.now() - timeStart;
+    
+    // Calcular los minutos, segundos y milisegundos
+    const minutes = Math.floor(currentTime / 60000);
+    const seconds = Math.floor((currentTime % 60000) / 1000);
+    const milliseconds = currentTime % 1000;
+
+    // Formatear los valores en una cadena en el formato deseado
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+    const formattedSeconds = seconds.toString().padStart(2, '0');
+    const formattedMilliseconds = milliseconds.toString().padStart(3, '0');
+
+    const formattedTime = `${formattedMinutes}:${formattedSeconds}:${formattedMilliseconds}`;
+
+    spanTime.innerHTML = formattedTime;
 }
 function moveByKeys(event) {
     const direction = event.key;
