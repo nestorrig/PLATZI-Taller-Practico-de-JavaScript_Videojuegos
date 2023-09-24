@@ -15,7 +15,9 @@
     margin: 0;
     padding: 0;
 }
-
+.inactive {
+    display: none !important;
+}
 body {
     background: linear-gradient(45deg, var(--primary1), var(--primary2));
     background-size: 400%;
@@ -41,7 +43,7 @@ body {
     /* gap: 24px; */
     flex-wrap: wrap;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
 }
 .content {
     display: flex;
@@ -69,11 +71,10 @@ canvas {
     gap: 54px;
 }
 
-button {
+.buttons button {
     background-color: var(--secondary2);
     border: none;
     border-radius: 50%;
-    border-color: var(--secondary2);
     color: var(--light1);
     font-family: inherit;
     font-size: 30px;
@@ -119,7 +120,50 @@ button:active {
     font-weight: normal;
     color: var(--light);
 }
+.gameOver {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: space-around;
+    background-color: var(--secondary1);
+}
+.gameOver__message {
+    text-align: center;
+}
+.gameOver__message > span {
+    font-size: 30px;
+}
+.gameOver__message > p {
+    font-size: 24px;
+}
 
+.gameOver__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.gameOver__buttons button {
+    width: 220px;
+    height: fit-content;
+    padding: 16px 24px;
+    margin-bottom: 24px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    color: var(--secondary1);
+    border: 2px solid var(--secondary2);
+    background-color: var(--secondary2);
+    border-radius: 16px;
+}
+.gameOver__buttons button:last-child {
+    color: var(--secondary2);
+    border: 2px solid var(--secondary2);
+    background-color: transparent;
+}
 @media (max-width: 440px) {
     .map {
         flex-direction: row;

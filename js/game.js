@@ -201,6 +201,7 @@ function gameWin() {
         spanRecord.innerHTML = spanTime.outerText
         localStorage.setItem('record', spanTime.outerText)
         localStorage.setItem('recordTime', playerInterval)
+        showFinalMessage('newRecord', spanRecord.outerText )
         return
     }
     if (playerInterval < localStorage.getItem('recordTime')) {
@@ -208,8 +209,10 @@ function gameWin() {
         spanRecord.innerHTML = spanTime.outerText
         localStorage.setItem('record', spanTime.outerText)
         localStorage.setItem('recordTime', playerInterval)
+        showFinalMessage('newRecord', spanRecord.outerText)
+        return
     }
-
+    showFinalMessage('no', spanRecord.outerText, spanTime.outerText)
 }
 function reset() {
     moves = 0
