@@ -1,12 +1,12 @@
 :root {
-    --color1-1: #00ADB5;
-    --color1-2: #AAE3E2;
-    --color2-1: #AC7DD2;
-    --color2-2: #d5a5fd;
-    --black1: #393E46;
-    --black2: #656c75;
-    --light1: #EEEEEE;
-    --text-color: #3b3c3d;
+    --primary1: #8631d1;
+    --primary2: #D09CFA;
+    --secondary1: #748ef5;
+    --secondary2: #141E46;
+    --dark1: #3b3c3d;
+    --dark2: #393E46;
+    --dark3: #656c75;
+    --light: #EEEEEE;
 }
 
 * {
@@ -16,11 +16,10 @@
 }
 
 body {
-    background: var(--light1);
-    background: linear-gradient(45deg, var(--light1), var(--color2-2));
+    background: linear-gradient(45deg, var(--primary1), var(--primary2));
     background-size: 400%;
-    color: var(--text-color);  
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: var(--light);  
+    font-family: Roboto, Geneva, Tahoma, sans-serif;
     animation: body_gradient 10s ease infinite;
 }
 @keyframes body_gradient{
@@ -31,7 +30,8 @@ body {
 
 
 .map {
-    padding-block: 36px;
+    padding-top: 36px;
+    padding-bottom: 72px;
     display: flex;
     flex-direction: row-reverse;
     align-content: space-between;
@@ -48,9 +48,9 @@ body {
     gap: 48px;
 }
 canvas {
-    border: 4px solid var(--color1-1);
+    border: 4px solid var(--primary1);
     border-radius: 8px;
-    background-color: var(--color1-2);
+    background-color: var(--secondary1);
 }
 
 .buttons {
@@ -69,10 +69,10 @@ canvas {
 }
 
 button {
-    background-color: var(--color2-1);
+    background-color: var(--secondary2);
     border: none;
     border-radius: 50%;
-    border-color: var(--color2-2);
+    border-color: var(--secondary2);
     color: var(--light1);
     font-family: inherit;
     font-size: 30px;
@@ -81,10 +81,11 @@ button {
     width: 75px;
     user-select: none;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
     transition: all .3s;
 }
 button:hover {
-    background-color: var(--color1-1);
+    background-color: var(--dark2);
 }
 button:active {
     transform: scale(.9);
