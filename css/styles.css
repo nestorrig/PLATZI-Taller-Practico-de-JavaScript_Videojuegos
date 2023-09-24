@@ -7,6 +7,7 @@
     --dark2: #393E46;
     --dark3: #656c75;
     --light: #EEEEEE;
+    --light2: #dddddd;
 }
 
 * {
@@ -105,10 +106,18 @@ button:active {
     max-width: 460px;
 }
 
-p {
+.messages > p {
     display: block;
     margin: 0;
+    margin-bottom: 8px;
     width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--light2);
+}
+.messages span {
+    font-weight: normal;
+    color: var(--light);
 }
 
 @media (max-width: 440px) {
