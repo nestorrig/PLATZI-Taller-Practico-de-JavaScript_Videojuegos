@@ -15,6 +15,7 @@ let canvasSize
 let level = 0
 let lives = 3
 let collisionEstatus = false
+let win = false
 
 let timeStart
 let timeInterval
@@ -51,7 +52,9 @@ function printMap() {
     canvas.setAttribute('height', canvasSize);
 
     elementSize = Math.ceil(canvasSize/10 - 1.5);
-    startGame()
+    if (!win) {
+        startGame()
+    }
 }
 function startGame() {
     game.font = `${elementSize}px Verdana`;
@@ -192,6 +195,7 @@ function lostGame() {
     reset()
 }
 function gameWin() {
+    win = true
     clearInterval(timeInterval)
     window.removeEventListener('keydown', moveByKeys);
     buttons.forEach(button => {

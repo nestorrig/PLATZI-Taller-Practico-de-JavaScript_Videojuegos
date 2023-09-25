@@ -10,7 +10,7 @@ function showFinalMessage(status, recordTime, roundTime) {
         const message = document.createElement('span')
         const record = document.createElement('p')
 
-        message.innerText = `Que  bien nuevo record`
+        message.innerText = `¡Que bien, has alcanzado un nuevo record`
         record.innerText = `Nuevo record: ${recordTime}`
         messageDiv.append(message, record)
 
@@ -20,13 +20,16 @@ function showFinalMessage(status, recordTime, roundTime) {
         const record = document.createElement('p')
         const time = document.createElement('p')
 
-        message.innerText = `Sigue intendando`
+        message.innerText = `¡Sigue intentandolo, tu puedes!`
         record.innerText = `Record: ${recordTime}`
         time.innerText = `tu tiempo: ${roundTime}`
         messageDiv.append(message, record, time)
 
         iconRepeat.classList.remove('inactive')
     }
+    setTimeout(() => {
+        messageContainer.style.animation = 'showMessage .3s linear both'
+    }, 1000);
 }
 
 document.getElementById('Replay').addEventListener('click', ()=> {
