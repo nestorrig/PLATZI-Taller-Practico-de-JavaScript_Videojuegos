@@ -38,6 +38,7 @@ const collisionPositions = []
 
 window.addEventListener('load', printMap);
 window.addEventListener('resize', printMap);
+window.addEventListener('resize', ()=> {moves = 0});
 window.addEventListener('keydown', moveByKeys);
 buttons.forEach(button => {
     button.addEventListener('click', moveByButtons)
@@ -111,6 +112,9 @@ function startGame() {
     if (collisionEstatus) {
         game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y)
     }
+    collisionPositions.forEach(collision => {
+        game.fillText(emojis['BOMB_COLLISION'], collision.x, collision.y)
+    })
 }
 
 function mapLimit() {
@@ -159,9 +163,6 @@ function movePlayer(direction) {
             }
         }
     });
-    collisionPositions.forEach(collision => {
-        game.fillText(emojis['BOMB_COLLISION'], collision.x, collision.y)
-    })
     if (giftPosition.x === playerPosition.x) {
         if (giftPosition.y === playerPosition.y) {
             nextLevel()
